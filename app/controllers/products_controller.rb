@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
       flash[:success] = "Product was successfully created."
       redirect_to @product
     else
-      flash[:danger] = "Product wasn't successfully created."
+      flash.now[:danger] = "Product wasn't successfully created."
       render :new
     end
   end
@@ -30,9 +30,13 @@ class ProductsController < ApplicationController
       flash[:success] = "Product was successfully updated."
       redirect_to @product
     else
-      flash[:danger] = "Product wasn't successfully updated."
+      flash.now[:danger] = "Product wasn't successfully updated."
       render :edit
     end
+  rescue ActiveRecord::StaleObjectError
+    flash.now[:danger] = "Product wasn't successfully updated."
+    @product.reload
+    render :edit_conflict
   end
 
   def destroy
@@ -56,6 +60,6 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description)
+    params.require(:product).permit(:name, :price, :description, :lock_version)
   end
 end

@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Edit Product</h1>
+
+  <div class="jumbotron">
+    <h4>Someone edited the product the same time you did. Please re-apply your changes to the product.</h4>
+    <span>Your Submission:</span>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td><%= params[:product][:name] %></td>
+        <td><%= params[:product][:price] %></td>
+        <td><%= params[:product][:description] %></td>
+      </tr>
+      </tbody>
+    </table><br>
+  </div>
+
+  <%= render "form", product: @product %>
+</div>
