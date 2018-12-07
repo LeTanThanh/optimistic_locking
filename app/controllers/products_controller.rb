@@ -16,21 +16,21 @@ class ProductsController < ApplicationController
       flash[:success] = "Product was successfully created."
       redirect_to @product
     else
+      flash[:danger] = "Product wasn't successfully created."
       render :new
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @product.update_attributes(product_params)
       flash[:success] = "Product was successfully updated."
       redirect_to @product
     else
+      flash[:danger] = "Product wasn't successfully updated."
       render :edit
     end
   end
@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
     if @product.destroy
       flash[:success] = "Product was successfully destroyed."
     else
-      flash[:danger] = "Product can't destroyed."
+      flash[:success] = "Product wasn't successfully destroyed."
     end
 
     redirect_to products_url
@@ -50,8 +50,8 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
 
     unless @product
-      flash[:danger] = "Product not found."
-      edirect_to products_url
+      flash[:danger] = "Product wasn't found."
+      redirect_to products_url
     end
   end
 
